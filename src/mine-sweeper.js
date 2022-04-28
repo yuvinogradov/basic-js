@@ -23,9 +23,37 @@ const { NotImplementedError } = require('../extensions/index.js');
  *  [1, 1, 1]
  * ]
  */
-function minesweeper(/* matrix */) {
-  throw new NotImplementedError('Not implemented');
-  // remove line with error and write your code here
+/// PASS
+
+function countTrues(matrixX, i, j) {
+  const count =
+    0 +
+    (i < matrixX.length - 1 ? +matrixX[i + 1][j] : 0) +
+    (i < matrixX.length - 1 && j < matrixX[0].length - 1
+      ? +matrixX[i + 1][j + 1]
+      : 0) +
+    (j < matrixX[0].length - 1 ? +matrixX[i][j + 1] : 0) +
+    (i > 0 && j < matrixX[0].length - 1 ? +matrixX[i - 1][j + 1] : 0) +
+    (i > 0 ? +matrixX[i - 1][j] : 0) +
+    (i > 0 && j > 0 ? +matrixX[i - 1][j - 1] : 0) +
+    (j > 0 ? +matrixX[i][j - 1] : 0) +
+    (i < matrixX.length - 1 && j > 0 ? +matrixX[i + 1][j - 1] : 0);
+  // console.log(matrixX[i][j]);
+    // console.log((i < matrixX.length-1) && (j < matrixX[0].length-1) ? +matrixX[i+1][j+1] : 0 )
+  // console.log(count);
+  return count;
+}
+
+function minesweeper(mat) {
+  const res = [];
+  for (let i = 0; i < mat.length; i++) {
+    const subRes = [];
+    for (let j = 0; j < mat[0].length; j++) {
+      subRes.push(countTrues(mat, i, j));
+    }
+    res.push([...subRes]);
+  }
+  return res;
 }
 
 module.exports = {
